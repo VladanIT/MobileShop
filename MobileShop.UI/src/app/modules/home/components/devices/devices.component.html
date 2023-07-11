@@ -1,0 +1,18 @@
+<app-header></app-header>
+
+  <div class="container">
+    <h1 class="title mt-5 mb-5">Devices</h1>
+    <div class="articles">
+      <div class="article col-m-5 col-lg-3" *ngFor="let device of devices">
+        <h4 class="text-center mt-3">{{ device.brand }}</h4>
+        <h5 class="text-center mb-3">{{ device.model }}</h5>
+        <div class="slika">
+
+        </div>
+        <p class="text-center">{{ device.price + ' Euro' }}</p>
+      </div>
+    </div>
+
+  </div>
+
+<app-footer></app-footer>
