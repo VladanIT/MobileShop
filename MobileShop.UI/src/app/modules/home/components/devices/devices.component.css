@@ -1,5 +1,11 @@
 .container {
-  min-height: 40rem;
+  margin-top: 3rem;
+  min-height: 80rem;
+}
+
+.title {
+  margin-bottom: 3rem;
+  text-align: center;
 }
 
 .articles {
@@ -13,9 +19,26 @@
   float: left;
 }
 
-.slika {
-  width: 100%;
-  height: 20rem;
-  background-color: aqua;
-  margin-bottom: 1rem;
+.info {
+  width: 50rem;
+  float: right;
+  margin-top: 5rem;
+}
+
+.brand {
+  float: left;
+}
+
+.price {
+  float: right;
+  text-align: center;
+}
+
+.price span {
+  display: block;
+  text-align: center;
+}
+
+.device-price {
+  font-size: 1.3rem;
 }

@@ -21,7 +21,7 @@ namespace MobileShop.API.Controllers
         }
 
         [HttpGet]
-        public string GetDevices()
+        public List<Device> GetDevices()
         {
             SqlConnection conn = new SqlConnection(_configuration.GetConnectionString("MobileShopConnectionString").ToString());
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Devices", conn);
@@ -45,7 +45,7 @@ namespace MobileShop.API.Controllers
                 }
             }
 
-            return JsonSerializer.Serialize(devices);
+            return devices;
 
         }
 

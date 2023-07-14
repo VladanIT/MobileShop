@@ -1,18 +1,33 @@
 <app-header></app-header>
 
-  <div class="container">
-    <h1 class="title mt-5 mb-5">Devices</h1>
-    <div class="articles">
-      <div class="article col-m-5 col-lg-3" *ngFor="let device of devices">
-        <h4 class="text-center mt-3">{{ device.brand }}</h4>
-        <h5 class="text-center mb-3">{{ device.model }}</h5>
-        <div class="slika">
+<div class="container">
+  <h1 class="title">Devices</h1>
 
+  <p-dataView #dv [value]="devices" [rows]="5" [paginator]="true">
+    <ng-template let-product pTemplate="listItem">
+        <div class="col-12">
+            <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+                <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" src="./../../../../../assets/images/s10plus.jpeg" width="200" [alt]="product.model" />
+                <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4 info">
+                    <div class="flex flex-column align-items-center sm:align-items-start gap-3 brand">
+                        <div class="text-2xl font-bold text-900"><h3>{{ product.brand }}</h3></div>
+                        <div class="flex align-items-center gap-3">
+                            <span class="flex align-items-center gap-2">
+                                <i class="pi pi-tag"></i>
+                                <span class="font-semibold"><h6>{{ product.model }}</h6></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2 price">
+                        <span class="text-2xl font-semibold "><strong class="device-price">{{ '$' + product.price }}</strong></span>
+                        <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'">BUY</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <p class="text-center">{{ device.price + ' Euro' }}</p>
-      </div>
-    </div>
+    </ng-template>
+</p-dataView>
 
-  </div>
+</div>
 
 <app-footer></app-footer>

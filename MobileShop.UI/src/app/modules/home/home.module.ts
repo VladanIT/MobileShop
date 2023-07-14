@@ -5,6 +5,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { DevicesComponent } from './components/devices/devices.component';
+import { ButtonModule } from 'primeng/button';
+import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { DevicesComponent } from './components/devices/devices.component';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    SharedModule
+    SharedModule,
+    ButtonModule,
+    DataViewModule
   ]
 })
 export class HomeModule { }
