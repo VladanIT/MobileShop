@@ -15,4 +15,8 @@ export class ApiServiceService {
   getAllDevices(): Observable<Device[]>{
     return this.http.get<Device[]>(this.baseApiUrl + '/api/Device');
   }
+
+  getDevice(id: string): Observable<Device> {
+    return this.http.get<Device>(this.baseApiUrl + '/api/Device/' + id);
+  }
 }

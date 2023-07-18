@@ -1,0 +1,41 @@
+<app-header></app-header>
+
+<div class="container">
+  <h1 class="title">Devices</h1>
+
+  <p-table
+    [value]="devices"
+    [paginator]="true"
+    [rows]="10"
+  >
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width:25%">Brand</th>
+            <th style="width:25%">Model</th>
+            <th style="width:25%">RAM</th>
+            <th style="width:25%">ROM</th>
+            <th style="width:25%">Price</th>
+            <th style="width:25%"> </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-device>
+        <tr>
+            <td>{{ device.brand }}</td>
+            <td>{{ device.model }}</td>
+            <td>{{ device.ram + 'GB' }}</td>
+            <td>{{ device.rom + 'GB' }}</td>
+            <td>{{ device.price + 'Euro' }}</td>
+            <td><a routerLink="device/{{ device.id }}" class="view">View</a></td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-table>
+
+</div>
+
+<app-footer></app-footer>

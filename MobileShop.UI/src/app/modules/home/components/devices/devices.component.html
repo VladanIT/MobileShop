@@ -5,6 +5,7 @@
 
   <p-dataView #dv [value]="devices" [rows]="5" [paginator]="true">
     <ng-template let-product pTemplate="listItem">
+
         <div class="col-12">
             <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
                 <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" src="./../../../../../assets/images/s10plus.jpeg" width="200" [alt]="product.model" />
@@ -20,11 +21,14 @@
                     </div>
                     <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2 price">
                         <span class="text-2xl font-semibold "><strong class="device-price">{{ '$' + product.price }}</strong></span>
-                        <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'">BUY</button>
+                        <a routerLink="/device/{{ product.id }}">
+                          <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'">BUY</button>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+
     </ng-template>
 </p-dataView>
 

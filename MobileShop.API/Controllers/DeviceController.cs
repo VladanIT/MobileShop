@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using MobileShop.API.Data;
 using MobileShop.API.Model;
 using System.Data;
-using System.Text.Json;
 
 namespace MobileShop.API.Controllers
 {
@@ -57,6 +57,20 @@ namespace MobileShop.API.Controllers
             await _mobileShopDbContex.SaveChangesAsync();
 
             return Ok(deviceRequest);
+        }
+
+        [HttpGet]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> GetDevice([FromRoute] Guid id)
+        {
+            var device = await _mobileShopDbContex.Devices.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (device == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(device);
         }
     }
 }
