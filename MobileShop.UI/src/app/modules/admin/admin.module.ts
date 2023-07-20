@@ -7,6 +7,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DeviceComponent } from './components/device/device.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { DeviceComponent } from './components/device/device.component';
     AdminRoutingModule,
     SharedModule,
     TableModule,
-    ButtonModule
+    ButtonModule,
+    FormsModule
   ]
 })
 export class AdminModule { }

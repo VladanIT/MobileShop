@@ -72,5 +72,44 @@ namespace MobileShop.API.Controllers
 
             return Ok(device);
         }
+
+        [HttpPut]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> UpdateDevice([FromRoute] Guid id, Device updateDevice)
+        {
+            var device = await _mobileShopDbContex.Devices.FindAsync(id);
+
+            if (device == null)
+            {
+                return NotFound();
+            }
+
+            device.Brand = updateDevice.Brand;
+            device.Model = updateDevice.Model;
+            device.Ram = updateDevice.Ram;
+            device.Rom = updateDevice.Rom;
+            device.Price = updateDevice.Price;
+
+            await _mobileShopDbContex.SaveChangesAsync();
+
+            return Ok(device);
+        }
+
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> DeleteDevice([FromRoute] Guid id)
+        {
+            var device = await _mobileShopDbContex.Devices.FindAsync(id);
+
+            if (device == null)
+            {
+                return NotFound();
+            }
+
+            _mobileShopDbContex.Devices.Remove(device);
+            await _mobileShopDbContex.SaveChangesAsync();
+
+            return Ok(device);
+        }
     }
 }

@@ -1,7 +1,7 @@
-import { ApiServiceService } from './../../../../shared/services/api-service.service';
 import { Component, OnInit } from '@angular/core';
 
 import { Device } from './../../../../models/device.model';
+import { DeviceService } from 'src/app/shared/services/device/device.service';
 
 @Component({
   selector: 'app-devices',
@@ -12,7 +12,7 @@ export class DevicesComponent implements OnInit {
 
   devices: Device[] = [];
 
-  constructor(private apiService: ApiServiceService ) {}
+  constructor(private apiService: DeviceService ) {}
 
   ngOnInit(): void {
     this.apiService.getAllDevices().subscribe({

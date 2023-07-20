@@ -1,4 +1,4 @@
-import { ApiServiceService } from './../../../../shared/services/api-service.service';
+import { DeviceService } from './../../../../shared/services/device/device.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Device } from 'src/app/models/device.model';
@@ -19,7 +19,7 @@ export class DeviceComponent implements OnInit {
     price: 0
   }
 
-  constructor(private route: ActivatedRoute, private apiService: ApiServiceService, private router: Router) {}
+  constructor(private route: ActivatedRoute, private apiService: DeviceService, private router: Router) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe({
@@ -37,4 +37,19 @@ export class DeviceComponent implements OnInit {
     })
   }
 
+  updateDevice() {
+    this.apiService.updateDevice(this.deviceDetails.id, this.deviceDetails).subscribe({
+      next: (response) => {
+        this.router.navigate(['auth']);
+      }
+    })
+  }
+
+  deleteDevice(id: string) {
+    this.apiService.deleteDevice(id).subscribe({
+      next: (response) => {
+        this.router.navigate(['auth']);
+      }
+    })
+  }
 }

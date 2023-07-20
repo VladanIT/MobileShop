@@ -10,5 +10,6 @@ namespace MobileShop.API.Data
         }
 
         public DbSet<Device> Devices { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

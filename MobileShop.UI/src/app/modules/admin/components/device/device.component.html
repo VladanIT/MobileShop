@@ -1,1 +1,42 @@
-<p>device works!</p>
+<app-header></app-header>
+
+<div class="container">
+    <h1>Device</h1>
+
+    <form #form="ngForm" (ngSubmit)="updateDevice()">
+      <div class="flex flex-column gap-2 col-lg-2 input-field">
+        <label htmlFor="brand">Brand</label>
+        <input pInputText id="brand" name="brand" [(ngModel)]="deviceDetails.brand" />
+        <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+      </div>
+      <div class="flex flex-column gap-2 col-lg-2 input-field">
+        <label htmlFor="model">Model</label>
+        <input pInputText id="model" name="model" [(ngModel)]="deviceDetails.model" />
+        <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+      </div>
+      <div class="flex flex-column gap-2 col-lg-2 input-field">
+        <label htmlFor="ram">RAM</label>
+        <input pInputText id="ram" name="ram" [(ngModel)]="deviceDetails.ram" />
+        <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+      </div>
+      <div class="flex flex-column gap-2 col-lg-2 input-field">
+        <label htmlFor="rom">ROM</label>
+        <input pInputText id="rom" name="rom" [(ngModel)]="deviceDetails.rom" />
+        <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+      </div>
+      <div class="flex flex-column gap-2 col-lg-2 input-field">
+        <label htmlFor="price">Price</label>
+        <input pInputText id="price" name="price" [(ngModel)]="deviceDetails.price" />
+        <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+      </div>
+      <div class="flex flex-column gap-2 input-field save-button">
+        <p-button type="submit">Save</p-button>
+      </div>
+      <div class="flex flex-column gap-2 input-field">
+        <p-button type="button" styleClass="p-button-danger" (onClick)="deleteDevice(deviceDetails.id)">Delete</p-button>
+      </div>
+    </form>
+
+</div>
+
+<app-footer></app-footer>

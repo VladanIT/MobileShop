@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MobileShop.API.Data;
 
@@ -11,9 +12,11 @@ using MobileShop.API.Data;
 namespace MobileShop.API.Migrations
 {
     [DbContext(typeof(MobileShopDbContex))]
-    partial class MobileShopDbContexModelSnapshot : ModelSnapshot
+    [Migration("20230718155134_user")]
+    partial class user
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
