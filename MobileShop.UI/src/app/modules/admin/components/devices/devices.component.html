@@ -25,7 +25,7 @@
             <td>{{ device.ram + 'GB' }}</td>
             <td>{{ device.rom + 'GB' }}</td>
             <td>{{ device.price + 'Euro' }}</td>
-            <td><a routerLink="device/{{ device.id }}" class="view">View</a></td>
+            <td><a routerLink="/admin/device/{{ device.id }}" class="view">View</a></td>
         </tr>
     </ng-template>
     <ng-template pTemplate="paginatorleft">

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using MobileShop.API.Data;
+using MobileShop.API.Implementantions.Interfaces;
 using MobileShop.API.Model;
 using System.Data;
 
@@ -12,56 +13,27 @@ namespace MobileShop.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        public readonly IConfiguration _configuration;
         public readonly MobileShopDbContex _mobileShopDbContex;
+        private readonly IUserInterface _userInterface;
 
-        public UserController(IConfiguration configuration, MobileShopDbContex mobileShopDbContex)
+        public UserController(MobileShopDbContex mobileShopDbContex, IUserInterface userInterface)
         {
-            _configuration = configuration;
             _mobileShopDbContex = mobileShopDbContex;
+            _userInterface = userInterface;
         }
 
         [HttpGet]
-        public List<User> GetUsers()
+        public async Task<IActionResult> GetUsers()
         {
-            SqlConnection conn = new SqlConnection(_configuration.GetConnectionString("MobileShopConnectionString").ToString());
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Users", conn);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
+            var result = await _userInterface.GetAllUsers();
 
-            List<User> users = new List<User>();
-
-            if (dt.Rows.Count > 0)
-            {
-                foreach (DataRow row in dt.Rows)
-                {
-                    User user = new User();
-                    user.Id = (Guid)row["Id"];
-                    user.FirstName = Convert.ToString(row["FirstName"]);
-                    user.LastName = Convert.ToString(row["LastName"]);
-                    user.Email = Convert.ToString(row["Email"]);
-                    user.Password = Convert.ToString(row["Password"]);
-                    user.Role = Convert.ToInt32(row["Role"]);
-                    users.Add(user);
-                }
-            }
-
-            return users;
+            return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddUser([FromBody] User user)
+        public async Task AddUser([FromBody] User user)
         {
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            user.Id = Guid.NewGuid();
-            await _mobileShopDbContex.Users.AddAsync(user);
-            await _mobileShopDbContex.SaveChangesAsync();
-
-            return Ok(user);
+            await _userInterface.CreateUser(user);
         }
 
         [HttpGet]
@@ -80,42 +52,16 @@ namespace MobileShop.API.Controllers
 
         [HttpPut]
         [Route("{id:Guid}")]
-        public async Task<IActionResult> UpdateUser([FromRoute] Guid id, User updateUser)
+        public async Task UpdateUser([FromRoute] Guid id, User updateUser)
         {
-            var user = await _mobileShopDbContex.Users.FindAsync(id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            user.Id = updateUser.Id;
-            user.FirstName = updateUser.FirstName;
-            user.LastName = updateUser.LastName;
-            user.Email = updateUser.Email;
-            user.Password = updateUser.Password;
-            user.Role = updateUser.Role;
-
-            await _mobileShopDbContex.SaveChangesAsync();
-
-            return Ok(user);
+            await _userInterface.UpdateUser(id, updateUser);
         }
 
         [HttpDelete]
         [Route("{id:Guid}")]
-        public async Task<IActionResult> DeleteUser([FromRoute] Guid id)
+        public async Task DeleteUser([FromRoute] Guid id)
         {
-            var user = await _mobileShopDbContex.Users.FindAsync(id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            _mobileShopDbContex.Users.Remove(user);
-            await _mobileShopDbContex.SaveChangesAsync();
-
-            return Ok(user);
+            await _userInterface.DeleteUser(id);
         }
     }
 }

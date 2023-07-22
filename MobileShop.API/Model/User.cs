@@ -2,7 +2,7 @@
 
 namespace MobileShop.API.Model
 {
-    public class User
+    public class User// UserDto DTO-Data Transfer Object
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }

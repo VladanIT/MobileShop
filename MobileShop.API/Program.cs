@@ -1,5 +1,7 @@
 using MobileShop.API.Data;
 using Microsoft.EntityFrameworkCore;
+using MobileShop.API.Implementantions.Interfaces;
+using MobileShop.API.Implementantions.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<MobileShopDbContex>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("MobileShopConnectionString")));
+builder.Services.AddTransient<IUserInterface,UserServices>();
+//builder.Services.AddTransient<IDe,UserServices>();
 
 var app = builder.Build();
 

@@ -1,0 +1,12 @@
+.container {
+  min-height: 50rem;
+}
+
+.input-field {
+  margin-bottom: 1rem;
+}
+
+.save-button {
+  float: left;
+  margin-right: 1rem;
+}

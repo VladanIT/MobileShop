@@ -1,3 +1,7 @@
+.container {
+  min-height: 50rem;
+}
+
 .input-field {
   margin-bottom: 1rem;
 }
