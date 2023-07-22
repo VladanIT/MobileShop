@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+import { User } from 'src/app/models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  person: User[] = [];
 
   constructor() { }
 
@@ -17,7 +20,7 @@ export class AuthService {
       users = JSON.parse(localStorageContent);
     }
 
-    users.push(person);
+    users.push(this.person);
     localStorage.setItem('users', JSON.stringify(users));
   }
 }

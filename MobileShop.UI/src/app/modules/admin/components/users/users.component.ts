@@ -3,12 +3,11 @@ import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/shared/services/user/user.service';
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css']
 })
-export class RegistrationComponent implements OnInit {
-
+export class UsersComponent implements OnInit {
   users: User[] = [];
 
   constructor(private userService: UserService) {}

@@ -1,0 +1,42 @@
+<app-header></app-header>
+
+<div class="container">
+  <h1 class="title">User</h1>
+
+  <form #form="ngForm" (ngSubmit)="updateUser()">
+    <div class="flex flex-column gap-2 col-lg-2 input-field">
+      <label htmlFor="firstName">First Name</label>
+      <input pInputText id="firstName" name="firstName" [(ngModel)]="userDetails.firstName" />
+      <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+    </div>
+    <div class="flex flex-column gap-2 col-lg-2 input-field">
+      <label htmlFor="model">Model</label>
+      <input pInputText id="model" name="model" [(ngModel)]="userDetails.lastName" />
+      <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+    </div>
+    <div class="flex flex-column gap-2 col-lg-2 input-field">
+      <label htmlFor="ram">RAM</label>
+      <input pInputText id="ram" name="ram" [(ngModel)]="userDetails.email" />
+      <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+    </div>
+    <div class="flex flex-column gap-2 col-lg-2 input-field">
+      <label htmlFor="rom">ROM</label>
+      <input pInputText id="rom" name="rom" [(ngModel)]="userDetails.password" />
+      <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+    </div>
+    <div class="flex flex-column gap-2 col-lg-2 input-field">
+      <label htmlFor="price">Price</label>
+      <input pInputText id="price" name="price" [(ngModel)]="userDetails.role" />
+      <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+    </div>
+    <div class="flex flex-column gap-2 input-field save-button">
+      <p-button type="submit">Save</p-button>
+    </div>
+    <div class="flex flex-column gap-2 input-field">
+      <p-button type="button" styleClass="p-button-danger" (onClick)="deleteUser(userDetails.id)">Delete</p-button>
+    </div>
+  </form>
+
+</div>
+
+<app-footer></app-footer>

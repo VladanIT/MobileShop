@@ -8,12 +8,16 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DeviceComponent } from './components/device/device.component';
 import { FormsModule } from '@angular/forms';
+import { UsersComponent } from './components/users/users.component';
+import { UserComponent } from './components/user/user.component';
 
 
 @NgModule({
   declarations: [
     DevicesComponent,
-    DeviceComponent
+    DeviceComponent,
+    UsersComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,
