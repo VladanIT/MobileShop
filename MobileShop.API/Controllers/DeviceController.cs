@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MobileShop.API.Data;
 using MobileShop.API.Model;
 using System.Data;
+using MobileShop.API.Implementantions.Interfaces;
 
 namespace MobileShop.API.Controllers
 {
@@ -12,104 +13,50 @@ namespace MobileShop.API.Controllers
     [ApiController]
     public class DeviceController : ControllerBase
     {
-        public readonly IConfiguration _configuration;
         private readonly MobileShopDbContex _mobileShopDbContex;
-        public DeviceController(IConfiguration configuration, MobileShopDbContex mobileShopDbContex) 
+        private readonly IDeviceInterface _deviceInterface;
+
+        public DeviceController(IDeviceInterface deviceInterface, MobileShopDbContex mobileShopDbContex) 
         {
-            _configuration = configuration;
             _mobileShopDbContex= mobileShopDbContex;
+            _deviceInterface = deviceInterface;
         }
 
         [HttpGet]
-        public List<Device> GetDevices()
+        public async Task<IActionResult> GetDevices()
         {
-            SqlConnection conn = new SqlConnection(_configuration.GetConnectionString("MobileShopConnectionString").ToString());
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Devices", conn);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
+            var result = await _deviceInterface.GetAllDevices();
 
-            List<Device> devices = new List<Device>();
-
-            if (dt.Rows.Count > 0)
-            {
-                foreach (DataRow row in dt.Rows)
-                {
-                    Device device = new Device();
-                    device.Id = (Guid)row["Id"];
-                    device.Brand = Convert.ToString(row["Brand"]);
-                    device.Model = Convert.ToString(row["Model"]);
-                    device.Ram = Convert.ToInt32(row["Ram"]);
-                    device.Rom = Convert.ToInt32(row["Rom"]);
-                    device.Price = Convert.ToInt32(row["Price"]);
-                    devices.Add(device);
-                }
-            }
-
-            return devices;
-
+            return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddDevice([FromBody] Device deviceRequest)
+        public async Task AddDevice([FromBody] Device deviceRequest)
         {
-            deviceRequest.Id = Guid.NewGuid();
-            await _mobileShopDbContex.Devices.AddAsync(deviceRequest);
-            await _mobileShopDbContex.SaveChangesAsync();
-
-            return Ok(deviceRequest);
+            await _deviceInterface.CreateDevice(deviceRequest);
         }
 
         [HttpGet]
         [Route("{id:Guid}")]
         public async Task<IActionResult> GetDevice([FromRoute] Guid id)
         {
-            var device = await _mobileShopDbContex.Devices.FirstOrDefaultAsync(x => x.Id == id);
+            var result = await _deviceInterface.GetDeviceById(id);
 
-            if (device == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(device);
+            return Ok(result);
         }
 
         [HttpPut]
         [Route("{id:Guid}")]
-        public async Task<IActionResult> UpdateDevice([FromRoute] Guid id, Device updateDevice)
+        public async Task UpdateDevice([FromRoute] Guid id, Device updateDevice)
         {
-            var device = await _mobileShopDbContex.Devices.FindAsync(id);
-
-            if (device == null)
-            {
-                return NotFound();
-            }
-
-            device.Brand = updateDevice.Brand;
-            device.Model = updateDevice.Model;
-            device.Ram = updateDevice.Ram;
-            device.Rom = updateDevice.Rom;
-            device.Price = updateDevice.Price;
-
-            await _mobileShopDbContex.SaveChangesAsync();
-
-            return Ok(device);
+            await _deviceInterface.UpdateDevice(id, updateDevice);
         }
 
         [HttpDelete]
         [Route("{id:Guid}")]
-        public async Task<IActionResult> DeleteDevice([FromRoute] Guid id)
+        public async Task DeleteDevice([FromRoute] Guid id)
         {
-            var device = await _mobileShopDbContex.Devices.FindAsync(id);
-
-            if (device == null)
-            {
-                return NotFound();
-            }
-
-            _mobileShopDbContex.Devices.Remove(device);
-            await _mobileShopDbContex.SaveChangesAsync();
-
-            return Ok(device);
+            await _deviceInterface.DeleteDevice(id);
         }
     }
 }

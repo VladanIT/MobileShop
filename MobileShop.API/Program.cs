@@ -15,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<MobileShopDbContex>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("MobileShopConnectionString")));
 builder.Services.AddTransient<IUserInterface,UserServices>();
+builder.Services.AddTransient<IDeviceInterface, DeviceServices>();
 //builder.Services.AddTransient<IDe,UserServices>();
 
 var app = builder.Build();
